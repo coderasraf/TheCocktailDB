@@ -11,7 +11,7 @@ const [searchTerm, setSearchTerm] = useState('a')
 const [cocktails, setCocktails] = useState([])
 
 
-const FetchDrinks = async () =>{
+const FetchDrinks = useCallback( async () =>{
   setLoading(true)
   try{
     const response = await fetch(`${url}${searchTerm}`)
@@ -47,11 +47,11 @@ const FetchDrinks = async () =>{
     console.log(error)
     setLoading(false)
   }
-}
+},[searchTerm])
 
 useEffect(() =>{
   FetchDrinks()
-},[searchTerm])
+},[searchTerm, FetchDrinks])
 
   return <AppContext.Provider 
     value={
